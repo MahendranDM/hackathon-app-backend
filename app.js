@@ -59,6 +59,29 @@ console.log("Connection State =", mongoose.connection.readyState);
   }
 });
 
+app.get("/api/view-teams", async (req, res) => {
+  try {
+    console.log("GET API HIT");
+
+    const teams = await Team.find();
+
+    console.log(teams);
+
+    res.status(200).json({
+      status: "success",
+      data: teams
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      status: "failed",
+      message: error.message
+    });
+  }
+});
+
 app.listen(3000,() => {
     console.log("Server Started")
 })
